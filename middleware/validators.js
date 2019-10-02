@@ -7,10 +7,22 @@ module.exports = {
                 if (isMissing) missedAttributes = attr;
                 return isMissing;
             });
-            console.log({missedAttributes})
             if (missing)
-                return res.json(jsonError(errors.MISSING_REQUIRED_VALUE));
+                return res.status(400).json(jsonError(errors.MISSING_REQUIRED_VALUE));
 
+            return next();
+        };
+    },
+
+    validEmail: ({ attributes }) => {
+        return (req, res, next) => {
+            let invalid = attributes.some((attr) => {
+                if (!req.body || !req.body[attr])
+                    return false;
+                return !req.body[attr].match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/);
+            });
+            if (invalid)
+                return res.status(400).json(jsonError(errors.NOT_VALID_EMAIL_VALUE));
             return next();
         };
     },

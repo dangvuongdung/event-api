@@ -16,6 +16,32 @@ class UserService {
         }
         return jsonSuccess();
     }
+
+    async login(principal, params) {
+        const { email, password } = params;
+
+        //-- check email
+        const user = await User.findOne({ email }).lean();
+        if (!user)
+            return jsonError(errors.INVALID_CREDENTIAL);
+
+        //-- check the password
+        const passwordCheckResult = await encryption.comparePassword(password, user.password);
+        if (!passwordCheckResult.success) return passwordCheckResult;
+
+        //-- generate token
+        const { _id, role } = user;
+        const tokenResult = await encryption.generateToken(
+            { _id, role },
+            getEnv("JWT_SECRET"),
+            getEnv("JWT_LOGIN_EXPIRED_IN")
+        );
+        if (!tokenResult.success) return tokenResult;
+
+        return jsonSuccess({
+            token: tokenResult.data,
+        });
+    }
 }
 
 module.exports = UserService;
