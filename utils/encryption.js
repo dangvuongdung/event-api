@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 const hashPassword = async (password) => {
 	let saltResult = await new Promise((resolve) => {
@@ -30,20 +30,20 @@ const generateToken = async (data, key, expiresIn) => {
 		jwt.sign(data, key, { expiresIn },
 			(err, token) => {
 				if (err) {
-					log.error("generateToken", err);
+					log.error('generateToken', err);
 					return resolve(jsonError(errors.SYSTEM_ERROR));
 				}
 				return resolve(jsonSuccess(token));
 			}
 		);
-	})
+	});
 };
 
 const comparePassword = async (password, passwordHash) => {
 	return await new Promise((resolve) => {
 		bcrypt.compare(password, passwordHash, (err, matched) => {
 			if (err) {
-				log.error("comparePassword", err);
+				log.error('comparePassword', err);
 				return resolve(jsonError(errors.SYSTEM_ERROR));
 			}
 			if (!matched) {

@@ -1,14 +1,14 @@
-const encryption = require("../utils/encryption");
+const encryption = require('../utils/encryption');
 
 class UserService {
     async boot() {
-        const admin = await User.findOne({ email: getEnv("DEFAULT_ADMIN_EMAIL") }).lean();
+        const admin = await User.findOne({ email: getEnv('DEFAULT_ADMIN_EMAIL') }).lean();
         if (!admin) {
-            const newPasswordHash = await encryption.hashPassword(getEnv("DEFAULT_ADMIN_PASSWORD"));
+            const newPasswordHash = await encryption.hashPassword(getEnv('DEFAULT_ADMIN_PASSWORD'));
             if (!newPasswordHash.success) return newPasswordHash;
 
             const newAdmin = new User({
-                email: getEnv("DEFAULT_ADMIN_EMAIL"),
+                email: getEnv('DEFAULT_ADMIN_EMAIL'),
                 password: newPasswordHash.data,
                 role: User.constants.ROLE.ADMIN,
             });
@@ -33,8 +33,8 @@ class UserService {
         const { _id, role } = user;
         const tokenResult = await encryption.generateToken(
             { _id, role },
-            getEnv("JWT_SECRET"),
-            getEnv("JWT_LOGIN_EXPIRED_IN")
+            getEnv('JWT_SECRET'),
+            getEnv('JWT_LOGIN_EXPIRED_IN')
         );
         if (!tokenResult.success) return tokenResult;
 

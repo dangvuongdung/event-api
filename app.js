@@ -84,6 +84,7 @@ const colors = require('colors/safe');
     let listener = app;
     //-- applying configs
     if (CONFIG.socketIO && CONFIG.socketIO.enabled) {
+        // eslint-disable-next-line new-cap
         let http = require('http').Server(app);
         global.io = require('socket.io')(http, CONFIG.socketIO.settings.options);
         if (CONFIG.socketIO.settings.jwt.enabled) {
@@ -150,6 +151,7 @@ const colors = require('colors/safe');
     for (let i = 0; i < _services.length; i++) {
         //-- instantiate the service
         log.verbose(`initializing ${_services[i].filename}`);
+        // eslint-disable-next-line new-cap
         let s = _services[i].instance = new (_services[i].service)();
         //-- check service name
         if (s.constructor.name.substring(0, 1).toLowerCase() === s.constructor.name.substring(0, 1)) {
@@ -220,15 +222,15 @@ const colors = require('colors/safe');
         }
     };
     process.on('SIGTERM', () => {
-        log.warn(`interrupt signal`);
+        log.warn('interrupt signal');
         return shutdownProcess();
     });
     process.on('SIGINT', () => {
-        log.warn(`interrupt signal`);
+        log.warn('interrupt signal');
         return shutdownProcess();
     });
     process.on('uncaughtException', (err) => {
-        log.warn(`uncaughtException`);
+        log.warn('uncaughtException');
         log.error('exception', err);
         return shutdownProcess();
     });

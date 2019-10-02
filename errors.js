@@ -17,5 +17,10 @@ module.exports = {
     'MISSING_REQUIRED_VALUE': { message: 'Missing required params' },
     'INVALID_CREDENTIAL': { message: 'Invalid credential' },
     'NOT_VALID_EMAIL_VALUE': { message: 'Not valid email value' },
+    'NOT_VALID_ID': { message: 'Not valid object id value' },
+    'NOT_VALID_DATE_VALUE': { message: 'Not valid date value' },
+    'DUPLICATE_NAME_ERROR': { message: 'Duplicate name error' },
+    'NOT_FOUND_ERROR': { message: 'Not found error' },
+    
 };
 

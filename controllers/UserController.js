@@ -1,3 +1,4 @@
+// eslint-disable-next-line new-cap
 const router = require('express').Router();
 const validators = require('../middleware/validators');
 
