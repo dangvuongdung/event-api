@@ -4,7 +4,7 @@
   "description": "Node restful api project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --timeout 10000",
     "start": "nodemon app.js",
     "start-sit": "NODE_ENV=SIT node app.js",
     "start-uat": "NODE_ENV=UAT node app.js",
@@ -23,11 +23,15 @@
     "moment": "^2.24.0",
     "mongoose": "^5.4.20",
     "mongoose-paginate": "^5.0.3",
+    "morgan": "^1.9.1",
     "nodemon": "^1.18.9"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2"
+    "eslint-plugin-import": "^2.18.2",
+    "mocha": "^6.2.1"
   }
 }
